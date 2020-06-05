@@ -1,0 +1,42 @@
+{% extends 'Diary/index.html'%}
+{% load static%}
+{% load humanize%}
+{% block content %}
+<div class="container" style="color:#333;">
+<h2 >My Diaries</h2>
+
+
+	{% for post in posts %}
+	<h3 style="color:#2e4ead;"><a href="{% url 'post_detail' post.id%}">{{post.title}}</a></h3>
+	<h3><u>status</u>:-    {{post.status}}</h3>
+	<h3><u>Content</u>:-   {{post.content| truncatechars:120}}</h3>
+	<blockquote class="blockquote">
+            <footer class="blockquote-footer"><cite title="Source Title"> {{post.date_posted|naturaltime}} </cite></footer>
+	</blockquote>
+	<div class="line"></div><hr/>
+
+	{% endfor %}
+
+	{% if posts.has_previous %}
+		<a href="?page=1" class="btn btn-primary">First</a>
+		<a href="?page={{ posts.previous_page_number}}" class="btn btn-primary">Previous</a>
+	{% endif %}
+
+	{% for num in posts.paginator.page_range %}
+		{% if posts.number == num %}
+			<a href="?page={{ num }}" class="btn btn-primary"><strong>{{ num }}</strong></a>
+		{% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
+			<a href="?page={{ num }}" class="btn btn-primary">{{ num }}</a>
+		{% endif %}
+	{% endfor %}
+
+	{% if posts.has_next %}
+		<a href="?page={{ posts.next_page_number}}" class="btn btn-primary">Next</a>
+		<a href="?page={{ posts.paginator.num_pages }}" class="btn btn-primary">Last</a>
+	{% endif %}
+
+
+</div>
+{% endblock %}
+
+

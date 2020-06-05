@@ -1,0 +1,54 @@
+
+{% extends 'Diary/index.html'%}
+{% load static %}
+{% block content %}
+
+<style>
+
+img {
+   margin-top:1%;
+   cursor: pointer;
+   box-shadow: 5px 10px 15px rgba(0, 0, 0,0.1);
+}
+
+.profile{color:#333;}
+
+.btn{
+	background-color: #1abc9c; /* Dark Blue */
+    color: #ffffff;
+    }
+
+h2{margin-top:6%; color:#333;}
+
+</style>
+
+<center><h2>Hello! {{request.user.username}}</h2><br></center>
+
+
+<div class="container-fluid" style="margin-left:27%;">
+    <div class="row">
+        {% if request.user.myprofile.image %}
+        <div class="col-sm-3 col-md-3">
+            <img src="{{request.user.myprofile.image.url}}" alt="" class="img-rounded img-responsive" />
+        </div>
+        {% endif %}
+        <div class="col-sm-4 col-md-5 profile">
+            <blockquote>
+                <p>From</p> <small><cite title="Source Title">{{request.user.myprofile.city}}, {{request.user.myprofile.state}}
+                <i class="glyphicon glyphicon-map-marker"></i></cite></small>
+            </blockquote>
+            <i class="glyphicon glyphicon-envelope"></i> {{request.user.email}}
+                <br/><br/>
+                <i class="glyphicon glyphicon-phone"></i> {{request.user.myprofile.phone_number}}
+                <br /><br/>
+                <i class="glyphicon glyphicon-gift"></i> {{request.user.myprofile.birth_date}} <br/><br/>
+                <i class="glyphicon glyphicon-globe"></i> {{request.user.myprofile.bio}}<br/>
+                <a href="/update_profile" class="card-link btn">UPDATE PROFILE</a>
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock %}
+

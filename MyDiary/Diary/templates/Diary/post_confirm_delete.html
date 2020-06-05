@@ -1,0 +1,22 @@
+{% extends 'Diary/index.html'%}
+{% load static%}
+{% block content %}
+
+<div class="container-fluid text-center">
+   <div style="color:#333;">
+     <h1 style="margin-top: 2%; margin-bottom: 2%;"> DELETE POST</h1>
+       <h2 style="margin-bottom: 2%; margin-left:11%;">Are You Sure You Want to Delete Post <i>{{ object.title }}</i></h2>
+     <form method="POST" enctype="multipart/form-data">
+         {% csrf_token %}
+
+         <div class="submit">
+            <input class="btn btn-danger" type="submit" value="Delete"/>
+             <a class="btn btn-info" href="{% url 'post_detail' object.id%}" >Cancel</a>
+         </div>
+     </form>
+       {% for messages in messages %}
+       <h3>{{messages}}</h3>
+       {% endfor %}
+   </div>
+</div>
+{% endblock %}

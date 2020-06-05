@@ -1,0 +1,11 @@
+{% extends 'Diary/index.html'%}
+{% load static%}
+{% block content %}
+<div class="container-fluid text-center my-5" >
+    {% for messages in messages %}
+    <h2 style="color: #333;">WelCome</h2>
+    <h5 style="color:red; font-size:5rem;">{{messages}}</h5>
+    {% endfor %}
+    <h3 style="color: #333;">Go Back To Read More <a href="/view_status" class="btn btn-primary"> Public Diaries</a></h3>
+</div>
+{% endblock %}

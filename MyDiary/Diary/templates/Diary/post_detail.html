@@ -1,0 +1,18 @@
+{% extends 'Diary/index.html'%}
+{% load static%}
+{% load humanize%}
+{% block content %}
+<div class="container" style="color:#333;">
+    <h1 style="margin-top:4%;">Diaries</h1>
+    <h3 >{{object.title}}</h3>
+    <h3 ><u>Content</u>:-   {{object.content| truncatechars:146}}</h3>
+    <h3><a href="/Diary/{{post.slug}}" class="btn btn-primary">Continue Reading</a></h3>
+    <blockquote class="blockquote">
+            <footer class="blockquote-footer">by <cite title="Source Title">{{post.name|capfirst}} ({{post.date_posted|naturaltime}}) </cite></footer>
+    </blockquote>
+    {% if object.name == user %}
+        <a class="btn btn-success" href="{% url 'post_update' object.id%}" >UPDATE</a>
+        <a class="btn btn-danger" href="{% url 'post_delete' object.id%}" >DELETE</a>
+    {% endif %}
+</div>
+{% endblock %}

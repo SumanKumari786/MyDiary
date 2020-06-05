@@ -1,0 +1,62 @@
+{% extends 'Diary/index.html'%}
+{% block content %}
+<style>
+
+.form{
+   margin-left: 25%;
+   margin-right: 28%;
+}
+
+.form h3{
+  color: #333;
+  text-align: center;
+}
+
+.btn{
+	background-color: #1abc9c; /* Dark Blue */
+    color: #ffffff;
+    }
+</style>
+
+<body>
+<div class="container  my-5">
+	<div class=" justify-content-center ">
+		<div class="my-2">
+			<div class="form my-5">
+				<h3>RegisterHere</h3>
+			</div>
+            <div class="form">
+				<form method="post">
+                    {% csrf_token %}
+					<div class=" form-group">
+						<input type="text" name="fname" class="form-control" placeholder="FirstName" required/>
+					</div>
+                    <div class=" form-group">
+						<input type="text" name="lname" class="form-control" placeholder="LastName" required/>
+					</div>
+                    <div class=" form-group">
+						<input type="text" name="usname" class="form-control" placeholder="UserName" required/>
+					</div>
+                    <div class=" form-group">
+						<input type="email" name="email" class="form-control" placeholder="E-Mail" required/>
+					</div>
+                    <div class=" form-group">
+						<input type="password" name="password1" class="form-control" placeholder="Password" required/>
+					</div>
+                    <div class=" form-group">
+						<input type="password" name="password2" class="form-control" placeholder="ConfirmPassword" required/>
+					</div>
+                    <div class="form-group">
+						<input type="submit" value="Register" class="btn">
+					</div>
+                </form>
+				<div>
+					{% for messages in messages %}
+					<h5 style="color:red;">{{messages}}</h5>
+					{% endfor %}
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'Diary/index.html'%}
+{% load crispy_forms_tags %}
+{% load static%}
+{% load humanize%}
+{% block content %}
+
+<div class="container" style="color:#333;">
+    <center><h2 style="color:#2e4ead;">COMPLETE DIARY </h2></center>
+    <div class="item">
+        <h3>{{post.title}}</h3>
+        <h3><u>Status</u>:- {{post.status}}</h3>
+        <h3 style="text-align:justify;"><u>Content</u>:- {{post.content}}</h3>
+
+        <blockquote class="blockquote">
+            <footer class="blockquote-footer">by <cite title="Source Title">{{post.name|capfirst}} ({{post.date_posted|naturaltime}}) </cite></footer>
+        </blockquote>
+    </div>
+    <div class="line"></div>
+    <form action="{% url  'Diary:like_post'%}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="post_id", value="{{post.id}}">
+        {% if request.user.is_authenticated %}
+            {% if user not in post.liked.all %}
+               <button class="btn btn-success" type="submit">Like</button>
+            {% else %}
+                <button class="btn btn-danger" type="submit">Unlike</button>
+            {% endif %}
+        {% endif %}
+    </form>
+
+    <strong>{{ post.liked.all.count }} likes</strong>
+
+    <div class="main-content-section">
+        <div class="container-fluid mt-2">
+            <div class="form-group-row">
+                <h2 style="color:#2e4ead;">Post Comment</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{commentform|crispy }}
+
+                    {% if request.user.is_authenticated %}
+                        <input type="submit" value="submit" class="btn btn-primary">
+                    {% else %}
+                        <h2>LOGIN Required To Post A Comment.</h2>
+                        <input type="submit" value="submit" disabled>
+
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+        <h2 style="color:#2e4ead;">Comments({{comments.count}})</h2><br>
+
+        {% for comment in comments %}
+        <blockquote class="blockquote">
+            <p class="mb-0">{{comment.comment}}</p>
+            <footer class="blockquote-footer">by <cite title="Source Title">{{comment.user|capfirst}} ({{comment.timestamp|naturaltime}})</cite></footer>
+
+
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample{{ comment.sno }}" aria-expanded="false" aria-controls="collapseExample{{ comment.sno }}">
+                    Reply
+                  </button><br>
+
+                <div class="collapse" id="collapseExample{{ comment.sno }}">
+                  <div class="card card-body">
+
+                      <div class="replied-comments  mt-2">
+                        {% for reply in comment.replies.all %}
+                        <blockquote class="blockquote">
+                            <p class="mb-0">{{reply.comment}}</p>
+                            <footer class="blockquote-footer">by <cite title="Source Title">{{reply.user|capfirst}} ({{reply.timestamp|naturaltime}})</cite></footer>
+                        </blockquote>
+                        {% endfor %}
+                        <div class="form-group-row">
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="comment_sno" value="{{ comment.sno }}">
+                                {{commentform|crispy }}
+
+                                {% if request.user.is_authenticated %}
+                                    <input type="submit" value="Submit" class="btn btn-info">
+                                {% else %}
+                                    <input type="submit" value="submit" disabled >
+                                {% endif %}
+                            </form>
+                        </div>
+                      </div>
+
+                  </div>
+                </div>
+
+
+        </blockquote>
+
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

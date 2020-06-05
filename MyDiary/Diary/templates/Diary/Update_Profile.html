@@ -1,0 +1,87 @@
+{% extends 'Diary/index.html'%}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<style>
+
+
+    .btn{
+	background-color: #1abc9c; /* Dark Blue */
+    color: #ffffff;
+    }
+
+
+
+    * {
+   margin: 0;
+   padding: 0;
+}
+
+body {
+  font-family: oswald;
+}
+
+.contain {
+  max-width: 500px;
+  height: auto;
+  background: rgba(255,255,255,1.0);
+  margin: 5px auto;
+  padding: 30px;
+  color: #333;
+  font-weight: 700;
+}
+
+input[type="text"]{
+   width: 100%;
+   box-sizing: border-box;
+   padding: 12px 10px;
+   background: transparent;
+   border: none;
+   outline: none;
+   border: 1px solid skyblue;
+   border-radius: 5px;
+   margin-left: 0px;
+   margin-top: 1%;
+   margin-bottom: 3%;
+   font-size: 18px;
+   font-weight: bold;
+   outline: none;
+   transition: all 0.5s;
+}
+
+textarea{
+   padding: 12px 9px;
+   margin-top: 1%;
+   margin-bottom: 3%;
+   border: 5px solid #2e4ead;
+   font-weight: bold;
+   font-size: 18px;
+   background: transparent;
+}
+
+input:focus, textarea:focus {
+  border: 3px solid #1184a8;
+}
+
+
+</style>
+
+<div class="main-container">
+   <div class="contain">
+    <center><h2 id="h2">UPDATE YOUR PROFILE HERE.</h2></center>
+    <center>
+    <form method="post" enctype="multipart/form-data" class="form">{% csrf_token%}
+        {{ u_form|crispy }}
+        {{ p_form|crispy }}
+        <input type="submit" value="SAVE CHANGES" class="btn" />
+        <div>
+            {% for messages in messages %}
+            <h3>{{messages}}</h3>
+            {% endfor %}
+        </div>
+    </form></center>
+   </div>
+</div>
+
+
+{% endblock %}

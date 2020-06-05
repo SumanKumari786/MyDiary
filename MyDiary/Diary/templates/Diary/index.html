@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>MyDiary</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/9ae01dec74.js" crossorigin="anonymous"></script>
+  <style>
+  body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    color: #f5f6f7;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 25px;}
+
+  .bg-2 {
+    background-color: #1abc9c; /* Dark Blue */
+    color: #ffffff;
+  }
+  .bg-3 {
+    background-color: #ffffff; /* White */
+    color: #555555;
+  }
+  .bg-4 {
+    background-color: #2f2f2f; /* Black Gray */
+    color: #fff;
+  }
+  .container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  .navbar {
+    background-color: #1abc9c;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight:900 ;
+  }
+
+  .navbar-nav  li a{
+     color: #fff;
+  }
+
+  .navbar-nav  li a:hover {
+    color: #1abc9c !important;
+    background-color: #fff;
+    text-decoration: none;
+  }
+
+   .navbar-nav .icon-bar{
+    color: #fff;
+  }
+
+  .row a{
+
+    font-size: 17px;
+    letter-spacing: 1px;
+    font-weight:500 ;
+    color: #fff;
+    text-decoration:none;
+  }
+
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar ">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar bg-warning"></span>
+        <span class="icon-bar bg-warning"></span>
+        <span class="icon-bar bg-warning"></span>
+      </button>
+      <a class="navbar-brand" style="color: #fff;" href="/">MyDiary</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/">HOME</a></li>
+        <li><a href="/view_status">PUBLIC DIARIES</a></li>
+        <li><a href="/post/new/">CREATE YOUR OWN DIARY</a></li>
+        <li><a href="/about">ABOUT</a></li>
+        <li><a href="/contact">CONTACT ME</a></li>
+
+        {% if user.is_authenticated %}
+          <li>
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="child">Your Area <i class="glyphicon glyphicon-map-marker"></i></a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+                <li><a href="/view_profile">View Profile</a></li>
+                <li><a href="/update_profile">Update Profile</a></li>
+                <li><a href="/view">MyDiary</a></li>
+                <li><a href="/private">Private Diaries</a></li>
+                <li><a href="/changepass">Change Password</a></li>
+            </ul>
+        </li>
+          <li><a href="/logout">LOGOUT</a></li>
+          <li><a href="#">Hello!  {{user.username}}</a></li>
+        {% else %}
+          <li><a href="/login">LOGIN</a></li>
+          <li><a href="/register">REGISTER</a></li>
+        {% endif %}
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+{% block content %}
+<!-- Third Container (Grid) -->
+<div class="container-fluid bg-3 text-center">
+  <h3 class="margin mt-0">Welcome to the free online diary</h3><br>
+  <div class="row">
+    <div class="col-sm-4">
+      <p>Writing a diary is a good way to make sure your memories and experiences stay alive.
+      </p>
+      <img src="http://getwallpapers.com/wallpaper/full/0/e/6/165796.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-4">
+      <p>Not only to record fun and fun and adventurous moments,
+        but also sad and scary times.</p>
+      <img src="http://getwallpapers.com/wallpaper/full/2/a/6/165799.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-4">
+      <p>It can be helpful to be able to document changes in your life.</p>
+      <img src="http://getwallpapers.com/wallpaper/full/4/f/b/165810.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid bg-2 text-center">
+  <h3 class="margin">What Am I?</h3>
+  <p class="container">Here you can read and write diaries.
+    You can like the diaries, and you can comment on them to give
+    feedback on what they write.
+  </p>
+  <a href="#" class="btn btn-default btn-lg">
+     Know More
+  </a>
+</div>
+{% endblock %}
+<!-- Footer -->
+<footer class="container-fluid col-sm-12" style="background: #474e5d;;">
+  <div class="row">
+    <div class="col-sm-4">
+      <p>Thanks</p>
+      <p>For joining me please LOGIN or REGISTER<br> to write Diary</p>
+    </div>
+    <div class="col-sm-4 ml-1">
+      <p>Features</p>
+      <a href="/post/new">Create Your Diaries</a><br>
+      <a href="/view_status">Public Diaries</a><br>
+      <a href="/private">Private Diaries</a><br>
+      <a href="/post/new">Store Memories</a><br>
+    </div>
+    <div class="col-sm-4">
+      <p>Other Features</p>
+      <a href="/about">About</a><br>
+      <a href="/contact">Contact</a><br>
+      <a href="/view_profile">Profile</a><br>
+      <a href="/changepass">Change Password</a><br>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

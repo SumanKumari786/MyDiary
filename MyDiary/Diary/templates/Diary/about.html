@@ -1,0 +1,43 @@
+{% extends 'Diary/index.html'%}
+{% load static%}
+{% block content %}
+
+<style>
+
+    .btn{
+	background-color: #1abc9c; /* Dark Blue */
+    color: #ffffff;
+    }
+
+</style>
+
+    <section class="container-fluid bg-3 text-center">
+      <div class="container mt-2">
+        <div class="row justify-content-center mb-2">
+          <div class="col-md-12 text-center" data-aos="fade-up">
+            <h2 class="text-black h1  text-center ">Share Your Memories</h2>
+          </div>
+        </div>
+      </div>
+      <div class="card div " >
+        <div class="card-body">
+        <h4 class="card-title">Funny Stories</h4>
+        <p class="card-text">The Things happen in your life that always make smile on your face.</p>
+        </div>
+      </div>
+        <div class="card div">
+            <div class="card-body">
+            <h4 class="card-title">Your Experiences</h4>
+            <p class="card-text">People always learns from their mistakes</p>
+            </div>
+        </div>
+
+        <div class="card div" >
+            <div class="card-body">
+            <h4 class="card-title">Your Stories</h4>
+            <p class="card-text">Anything You Want to Share With Us.</p>
+            </div>
+        </div>
+            <a href="/register" class="btn" >Register</a>
+    </section>
+{% endblock %}
